@@ -27,13 +27,13 @@ const db = mysql.createConnection({
             return console.log(err, "error connecting to database");
         }
         console.log("Connected to mysql sucessfully as id:", db.threadId);
-          //   sending message to browser for  successfull connection
-       console.log(`sending message to browser .....`);
+        
     });
 
 
 // Data is the name of the file inside the view folder
 app.get('/data', (req, res) => {
+    // RETRIEVE DATA FROM DATABASE
     db.query('SELECT * FROM patients', (err, results) => {
         if (err) {
             console.log(err);
@@ -47,15 +47,19 @@ app.get('/data', (req, res) => {
       
   
   
-// Root route for the homepage
+
+       
+         // successful connection, start server
+         app.listen(process.env.PORT,() => {
+            console.log(`server is listening on port: ${process.env.PORT}`);
+
+              //   sending message to browser for  successfull connection
+       console.log(`sending message to browser .....`);
+       // Root route for the homepage
        app.get('/', (req,res) =>{
         res.send('hello world, Server has started successfully')
 
        });
-       
-         // successful connection
-         app.listen(process.env.PORT,() => {
-            console.log(`server is listening on port: ${process.env.PORT}`);
   
     });
 
